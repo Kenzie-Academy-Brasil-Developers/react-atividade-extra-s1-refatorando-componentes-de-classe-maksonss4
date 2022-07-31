@@ -1,28 +1,31 @@
-import { Component } from "react";
-
 import DisplayWeather from "./components/DisplayWeather";
 import SearchWeather from "./components/SearchWeather";
 
 import "./App.css";
+import { useState } from "react";
 
-class App extends Component {
-  state = {
-    weather: {},
-    city: "",
+function App () {
+  const [weather, setWeather] = useState(null)
+  const [cit, setCit] = useState("")
+  // state = {
+  //   weather: {},
+  //   city: "",
+  // };
+
+  function handleChangeWeather (weatherData, city) {
+    setCit(city)
+    setWeather(weatherData)
+    // this.setState({ weather: weatherData, city: city });
   };
 
-  handleChangeWeather = (weatherData, city) => {
-    this.setState({ weather: weatherData, city: city });
-  };
-
-  render() {
-    return (
-      <div className="App">
-        <SearchWeather handleChangeWeather={this.handleChangeWeather} />
-        <DisplayWeather info={this.state} />
-      </div>
-    );
-  }
+  
+  return (
+    <div className="App">
+      <SearchWeather handleChangeWeather={handleChangeWeather} />
+      <DisplayWeather city={cit} weather={weather} />
+    </div>
+  );
+  
 }
 
 export default App;
